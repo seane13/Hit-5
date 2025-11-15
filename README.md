@@ -15,12 +15,14 @@
 4. Applying machine learning for draw prediction and feature analysis
 
 #### Folder Structure
+```
 project_root/
 │
 ├── data/          # Raw, cleaned, and output data files
 ├── scripts/       # Python scripts for processing, analysis, and simulation
 ├── notebooks/     # Jupyter notebooks for exploration and reporting
 ├── README.md      # Project overview and workflow (this file)
+```
 
 #### Workflow Chart
 ```
@@ -48,3 +50,4 @@ Open Jupyter notebooks in notebooks/
  #### Requirements
  1. Python 3.x
  2. pandas, numpy, scikit-learn
+ 3. [Optional] Mermaid support in VS Code (for flowchart rendering)

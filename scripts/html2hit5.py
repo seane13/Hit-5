@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import pandas as pd
 
-with open('past_180.html') as f:
+with open('data/past_180.html') as f:
     soup = BeautifulSoup(f, 'html.parser')
 
 results = []
@@ -26,5 +26,5 @@ for date_tag in soup.find_all('p', class_='h2-like'):
                 results.append([date]+numbers)
 
 df = pd.DataFrame(results, columns=["Date", "Num1", "Num2", "Num3", "Num4", "Num5"])
-df.to_csv("hit5_clean_manual.csv", index=False)
+df.to_csv("data/hit5_clean_manual.csv", index=False)
 print(f"Extracted {len(results)} draws to hit5_clean_manual.csv")

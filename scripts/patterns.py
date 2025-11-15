@@ -335,6 +335,3 @@ k = 5   # picks per draw
 
 total_combinations = math.comb(n, k)
 print(f"Total number of 5-number combinations from 21 numbers: {total_combinations}")
-
-
-

@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from utils.lottery_stats import (
     calculate_gaps, number_frequency, get_hot_warm_cold,
     longest_gap_per_number, recent_hits

@@ -1,5 +1,7 @@
 import pandas as pd
 import itertools
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from utils.lottery_stats import number_frequency, recent_hits, draws_set
 from utils.combo_filters import (
     valid_even_odd, has_3_consecutive, in_past_draws, in_sum_range, must_include

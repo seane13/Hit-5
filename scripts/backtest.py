@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import roc_auc_score, classification_report
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Load data
-df = pd.read_csv('hit5_clean_deduped.csv')
+df = pd.read_csv('data/hit5_clean_deduped.csv')
 number_columns = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
 all_possible_numbers = range(1, 43)
 

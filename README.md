@@ -23,12 +23,14 @@ project_root/
 ├── README.md      # Project overview and workflow (this file)
 
 #### Workflow Chart
+```
 flowchart TD
     A[Raw Data (.txt/.html/.csv)] --> B[Cleaning Scripts (clean_data.py, robust_clean.py, dedup.py)]
     B --> C[Cleaned Data (.csv)]
     C --> D[Analysis & Combo Gen (lottery_main.py, pool.py)]
     D --> E[Simulation/Backtest (backtest.py, final_pool.py)]
     D --> F[Exploration/Reporting (notebooks)]
+```
 
 #### Usage
 1. Clean raw data:

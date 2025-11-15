@@ -6,6 +6,7 @@ from sklearn.metrics import classification_report, roc_auc_score
 
 ### ------- DATA & CATEGORIZATION UTILITIES -------
 
+
 def load_draw_data(file="hit5_clean_deduped.csv"):
     df = pd.read_csv(file)
     number_columns = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
@@ -146,6 +147,6 @@ def main():
     # Optional: Backtest ML
     # features_df = build_features(df, number_columns)
     # backtest_classifier(features_df)
-    
+
 if __name__ == "__main__":
     main()

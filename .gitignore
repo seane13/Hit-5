@@ -1,0 +1,29 @@
+# Ignore data files
+/data/
+*.csv
+*.tsv
+*.xlsx
+
+# Ignore generated outputs
+*.png
+*.pdf
+*.svg
+
+# Ignore logs and checkpoints
+*.log
+*.ckpt
+*.npy
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore virtual environments
+.venv/
+env/
+
+# Ignore OS metadata files
+.DS_Store

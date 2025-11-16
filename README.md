@@ -10,18 +10,21 @@
 
 2. Generating strategic combination candidates (using hot/warm/cold frequency analysis)
 
-3. Running simulations and backtests to evaluate combo strategies
+3. Running simulations and backtests to evaluate both pool and machine-learning strategies
 
-4. Applying machine learning for draw prediction and feature analysis
+4. Hybrid backtesting: combining pool selection and ML scoring
+5. Feature engineering and performance benchmarking
 
 #### Folder Structure
 ```
 project_root/
 │
-├── data/          # Raw, cleaned, and output data files
-├── scripts/       # Python scripts for processing, analysis, and simulation
-├── notebooks/     # Jupyter notebooks for exploration and reporting
-├── README.md      # Project overview and workflow (this file)
+├── data/       # Raw, cleaned, and output data files
+├── scripts/    # Python scripts for processing, analysis, simulation, and backtest
+├── notebooks/  # Jupyter notebooks for exploration and reporting
+├── archive/    # Deprecated scripts for reference
+├── utils/      # Shared utilities (lottery_stats, pool_select, combo_filters, etc.)
+├── README.md   # This project overview
 ```
 
 #### Workflow Chart
@@ -29,25 +32,36 @@ project_root/
 flowchart TD
     A[Raw Data (.txt/.html/.csv)] --> B[Cleaning Scripts (clean_data.py, robust_clean.py, dedup.py)]
     B --> C[Cleaned Data (.csv)]
-    C --> D[Analysis & Combo Gen (lottery_main.py, pool.py)]
-    D --> E[Simulation/Backtest (backtest.py, final_pool.py)]
+    C --> D[Analysis & Pool/Combo Gen (analysis.py, pool.py, combos.py)]
+    D --> E[Simulation/Backtest (backtest_pool.py, backtest.py, hybrid_backtest.py)]
     D --> F[Exploration/Reporting (notebooks)]
+    E --> F
 ```
+### Key Scripts
+* scripts/pool.py, combos.py, backtest_pool.py: Strategic pool generation & historical coverage analysis
+* scripts/backtest.py: ML modeling and feature analysis for prediction
+* scripts/hybrid_backtest.py: Combines pool selection and ML probabilities to build/test hybrid strategies
 
 #### Usage
 1. Clean raw data:
 python scripts/clean_data.py data/hit5_raw.txt
 
-2. Generate combos and analyze:
-python scripts/clean_data.py data/hit5_raw.txt
+2. Generate pools/ combos:
+python scripts/combos.py
 
-3. Simulate combos versus history:
+3. Pool-based backtest:
+python scripts/backtest_pool.py
+
+4. Machine learning backtest:
 python scripts/backtest.py
 
-4. Explore/visualize results:
+5. Hybrid pool + ML backtest:
+python scripts/hybrid_backtest.py
+
+6. Explore/visualize results:
 Open Jupyter notebooks in notebooks/
 
  #### Requirements
  1. Python 3.x
  2. pandas, numpy, scikit-learn
- 3. [Optional] Mermaid support in VS Code (for flowchart rendering)
+ 3. Optional: Mermaid support in VS Code for flowcharts

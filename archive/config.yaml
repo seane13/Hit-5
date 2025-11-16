@@ -1,0 +1,19 @@
+# config.yaml
+data:
+  input_path: "data/hit5_clean_deduped.csv"
+  results_dir: "results/"
+  number_columns: ["Num1", "Num2", "Num3", "Num4", "Num5"]
+
+pool_strategy:
+  gap_n_cold: 5
+
+ml_model:
+  type: "RandomForestClassifier"
+  n_estimators: 100
+  random_state: 42
+
+test_window: 100
+feature_window: 20
+
+output:
+  log_level: "INFO"

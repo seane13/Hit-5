@@ -22,7 +22,7 @@ The historical lottery data analyzed in this project originates from:
 Washington's Lottery - Official Results
 https://www.walottery.com/WinningNumbers/
 
-#### Methods of Extraction and Processing
+### **Methods of Extraction and Processing**
 **Raw Data Collection:** Draw results were manually downloaded and/or programmatically extracted from Washington's Lottery official winning numbers pages, using standard web browsers and custom Python scripts (see html2hit5.py for examples).
 
 **Cleaning & Preprocessing:** All draw records were reformatted, deduplicated, and cleaned to normalize date formats and number columns using scripts in the scripts/ and utils/ folders.

@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -14,6 +15,7 @@ from utils.viz import (
 )
 from statsmodels.sandbox.stats.runs import runstest_1samp
 from scipy.stats import linregress, norm
+from utils.viz import plot_residuals_heatmap, plot_gap_length_per_number
 
 # --- Load Data ---
 DATA_PATH = 'data/hit5_clean_deduped.csv'
@@ -27,9 +29,14 @@ mean_freq = np.mean(list(freq.values()))
 std_freq = np.std(list(freq.values()))
 hot, warm, cold = get_hot_warm_cold(df, NUMBER_COLUMNS)
 print(f"Hot numbers (more frequent): {hot}")
+print(f"Warm numbers (average frequency): {warm}")
 print(f"Cold numbers (less frequent): {cold}")
 plot_number_frequency(freq, title="Number Frequency in Draws")
-plot_hot_warm_cold(freq, hot, warm, cold)
+
+# --- Standardized Residuals ---
+N_NUMBERS = 42  # update this if your lottery has a different range
+EXPECTED = len(df) * 5 / N_NUMBERS  # 5 numbers per draw, N draws
+plot_residuals_heatmap(freq, n_numbers=N_NUMBERS, n_draws=len(df), expected_per_number=EXPECTED, title="Standardized Residuals (Chi-Square Test)")
 
 # --- Summary Statistics ---
 print(f"Total Draws: {len(df)}")
@@ -51,6 +58,7 @@ gaps = calculate_gaps(df, NUMBER_COLUMNS)
 plot_gap_histogram(gaps)
 longest_gaps = longest_gap_per_number(gaps)
 print(f"Longest gaps per number: {dict(list(longest_gaps.items())[:10])}")
+plot_gap_length_per_number(gaps, title="Gap Lengths by Number")
 
 # --- Empirical vs Theoretical Probability ---
 prob_df = pd.DataFrame({

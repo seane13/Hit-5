@@ -42,6 +42,21 @@ flowchart TD
 * scripts/backtest.py: ML modeling and feature analysis for prediction
 * scripts/hybrid_backtest.py: Combines pool selection and ML probabilities to build/test hybrid strategies
 
+### Requirements
+ 1. Python 3.x
+ 2. pandas, numpy, scikit-learn
+ 3. Optional: Mermaid support in VS Code for flowcharts
+
+### Set up
+ #### Option 1: Using Conda
+conda env create -f environment.yml
+conda activate hit5-lottery-env
+
+#### Option 2: Using PIP
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+
 #### Usage
 1. Clean raw data:
 python scripts/clean_data.py data/hit5_raw.txt
@@ -60,8 +75,3 @@ python scripts/hybrid_backtest.py
 
 6. Explore/visualize results:
 Open Jupyter notebooks in notebooks/
-
- #### Requirements
- 1. Python 3.x
- 2. pandas, numpy, scikit-learn
- 3. Optional: Mermaid support in VS Code for flowcharts

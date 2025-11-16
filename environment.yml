@@ -1,0 +1,11 @@
+name: hit5-lottery-env
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pandas
+  - numpy
+  - scikit-learn
+  - matplotlib
+  - jupyterlab
+  - seaborn

@@ -3,7 +3,7 @@
 
 ## A modular pipeline for cleaning, analyzing, simulating, and modeling 5-number lottery draws
 
-### Project Overview
+### **Project Overview**
 
 #### This repository provides Python scripts and Jupyter notebooks for:
 
@@ -16,25 +16,25 @@
 4. Hybrid backtesting: combining pool selection and ML scoring
 5. Feature engineering and performance benchmarking
 
-### Data Source and Attribution
+### **Data Source and Attribution**
 The historical lottery data analyzed in this project originates from:
 
 Washington's Lottery - Official Results
 https://www.walottery.com/WinningNumbers/
 
 #### Methods of Extraction and Processing
-Raw Data Collection: Draw results were manually downloaded and/or programmatically extracted from Washington's Lottery official winning numbers pages, using standard web browsers and custom Python scripts (see html2hit5.py for examples).
+**Raw Data Collection:** Draw results were manually downloaded and/or programmatically extracted from Washington's Lottery official winning numbers pages, using standard web browsers and custom Python scripts (see html2hit5.py for examples).
 
-Cleaning & Preprocessing: All draw records were reformatted, deduplicated, and cleaned to normalize date formats and number columns using scripts in the scripts/ and utils/ folders.
+**Cleaning & Preprocessing:** All draw records were reformatted, deduplicated, and cleaned to normalize date formats and number columns using scripts in the scripts/ and utils/ folders.
 
-Data Files: Intermediate and results data (e.g., data/hit5_clean_deduped.csv) are derived solely from the aforementioned public lottery data.
+**Data Files:** Intermediate and results data (e.g., data/hit5_clean_deduped.csv) are derived solely from the aforementioned public lottery data.
 
 Intellectual Property and Open Source Notice
 This repository is an open-source, non-commercial project for educational, statistical, and research purposes only.
 Washington's Lottery retains all copyrights and ownership of the original draw result data.
 Use, redistribution, or publication of the data should comply with the terms outlined by the Washington State Lottery and any additional applicable regulations.
 
-No affiliation or endorsement: This project is not affiliated with, endorsed by, or associated with Washington's Lottery, the Washington State Lottery Commission, or any related entity.
+**No affiliation or endorsement:** This project is not affiliated with, endorsed by, or associated with Washington's Lottery, the Washington State Lottery Commission, or any related entity.
 Official game results should always be verified via the primary source.
 
 If utilizing or redistributing this dataset, please cite both this repository and the official Washington Lottery site as the original source for the underlying game results.

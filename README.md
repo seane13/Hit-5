@@ -2,6 +2,7 @@
 # Hit 5 Lottery Analysis
 
 ## A modular pipeline for cleaning, analyzing, simulating, and modeling 5-number lottery draws
+
 ### Project Overview
 
 #### This repository provides Python scripts and Jupyter notebooks for:
@@ -37,22 +38,22 @@ flowchart TD
     D --> F[Exploration/Reporting (notebooks)]
     E --> F
 ```
-### Key Scripts
+#### Key Scripts
 * scripts/pool.py, combos.py, backtest_pool.py: Strategic pool generation & historical coverage analysis
 * scripts/backtest.py: ML modeling and feature analysis for prediction
 * scripts/hybrid_backtest.py: Combines pool selection and ML probabilities to build/test hybrid strategies
 
-### Requirements
+#### Requirements
  1. Python 3.x
  2. pandas, numpy, scikit-learn
  3. Optional: Mermaid support in VS Code for flowcharts
 
-### Set up
- #### Option 1: Using Conda
+#### Set up
+ ##### Option 1: Using Conda
 conda env create -f environment.yml
 conda activate hit5-lottery-env
 
-#### Option 2: Using PIP
+##### Option 2: Using PIP
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

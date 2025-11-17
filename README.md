@@ -89,7 +89,7 @@ If utilizing or redistributing this dataset, please cite both this repository an
 * Histogram: Overall gap length distribution
 ![Gap Histogram](plots/gap_hist.png)
 * Sum Trend Plot: Rolling mean of draw sums, checks for cycles or anomalies
-![Sum Trend](plot/sum_trend.png)
+![Sum Trend](plots/sum_trend.png)
 
 ### **Benefits and Decision-Making Support**
 The solution empowers players to:

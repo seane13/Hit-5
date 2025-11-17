@@ -5,9 +5,9 @@
 *.xlsx
 
 # Ignore generated outputs
-*.png
-*.pdf
-*.svg
+
+
+
 
 # Ignore logs and checkpoints
 *.log

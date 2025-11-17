@@ -83,9 +83,9 @@ If utilizing or redistributing this dataset, please cite both this repository an
 * Bar Chart: Number frequency (identifies hot/cold numbers)
 ![Number Frequency Chart](plots/frequency_chart.png)
 * Boxplot: Gap lengths by number (reveals outliers and streaks)
-![Gap Lengths Boxplot](plots/boxplot_gaps.png)
+![Gap Lengths Boxplot](plots/gap_per.png)
 * Heatmap: Standardized residuals from chi-square analysis (shows statistical deviation)
-![Residuals Heatmap](plots/heatmap_residuals.png)
+![Residuals Heatmap](plots/res_heatmap.png)
 * Histogram: Overall gap length distribution
 ![Gap Histogram](plots/gap_hist.png)
 * Sum Trend Plot: Rolling mean of draw sums, checks for cycles or anomalies

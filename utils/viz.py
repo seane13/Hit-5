@@ -124,5 +124,5 @@ def plot_sum_trend(df, number_columns, window=20, title="Sum Trend of Drawn Numb
     plt.title(title)
     plt.legend()
     plt.tight_layout()
-    plt.show()
     plt.savefig('plots/sum_trend.png')
+    plt.show()

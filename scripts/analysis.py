@@ -12,7 +12,7 @@ from utils.lottery_stats import (
 )
 from utils.viz import (
     plot_number_frequency, plot_gap_histogram,
-    plot_hot_warm_cold, plot_sum_trend
+    plot_hot_warm_cold, plot_sum_trend, plot_empirical_vs_theoretical
 )
 from statsmodels.sandbox.stats.runs import runstest_1samp
 from scipy.stats import linregress, norm
@@ -56,6 +56,13 @@ print(f"Warm numbers (average frequency): {warm}")
 print(f"Cold numbers (less frequent): {cold}")
 plot_number_frequency(freq, title="Number Frequency in Draws")
 
+# Prepare frequency data and categories
+freq_dict = number_frequency(df, NUMBER_COLUMNS)
+hot, warm, cold = get_hot_warm_cold(df, NUMBER_COLUMNS)
+
+# Make the plot
+plot_hot_warm_cold(freq_dict, hot, warm, cold)
+
 # --- Standardized Residuals ---
 N_NUMBERS = 42  # update this if your lottery has a different range
 EXPECTED = len(df) * 5 / N_NUMBERS  # 5 numbers per draw, N draws
@@ -89,10 +96,7 @@ prob_df = pd.DataFrame({
     "Empirical Probability": pd.Series(freq) / len(df),
     "Theoretical Probability": [5/42] * 42
 })
-prob_df.plot(x="Number", y=["Empirical Probability", "Theoretical Probability"], kind="bar", figsize=(12,5))
-plt.title("Empirical vs. Theoretical Probability by Number")
-plt.tight_layout()
-plt.show()
+plot_empirical_vs_theoretical(prob_df)
 
 # --- Temporal Pattern Analysis ---
 sum_win = df[NUMBER_COLUMNS].sum(axis=1)

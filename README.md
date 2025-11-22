@@ -82,7 +82,9 @@ If utilizing or redistributing this dataset, please cite both this repository an
 ### **Visual Communication**
 * Bar Chart: Number frequency (identifies hot/cold numbers)
 ![Number Frequency Chart](plots/frequency_chart.png)
-* Boxplot: Gap lengths by number (reveals outliers and streaks)
+* Bar: Gap lengths by number (reveals outliers and streaks)
+![Hot Warm Cold Chart](plots/hot_warm_cold.png)
+* Bar: Gap lengths by number (shows hot warm cold by color)
 ![Gap Lengths Boxplot](plots/gap_per.png)
 * Heatmap: Standardized residuals from chi-square analysis (shows statistical deviation)
 ![Residuals Heatmap](plots/res_heatmap.png)
@@ -90,6 +92,8 @@ If utilizing or redistributing this dataset, please cite both this repository an
 ![Gap Histogram](plots/gap_hist.png)
 * Sum Trend Plot: Rolling mean of draw sums, checks for cycles or anomalies
 ![Sum Trend](plots/sum_trend.png)
+![ROC Curve](plots/ROC.png)
+* Roc curve showing ML model prediction performance.
 
 ### **Benefits and Decision-Making Support**
 The solution empowers players to:

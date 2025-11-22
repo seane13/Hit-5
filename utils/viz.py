@@ -126,3 +126,10 @@ def plot_sum_trend(df, number_columns, window=20, title="Sum Trend of Drawn Numb
     plt.tight_layout()
     plt.savefig('plots/sum_trend.png')
     plt.show()
+
+def plot_empirical_vs_theoretical(prob_df, title="Empirical vs. Theoretical Probability by Number"):
+    ax = prob_df.plot(x="Number", y=["Empirical Probability", "Theoretical Probability"], kind="bar", figsize=(12,5))
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig('plots/emperical_vs_theoretical.png')
+    plt.show()

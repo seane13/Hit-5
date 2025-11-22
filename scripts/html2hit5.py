@@ -1,8 +1,20 @@
 from bs4 import BeautifulSoup
 import pandas as pd
+import requests
 
-with open('data/past_180.html') as f:
-    soup = BeautifulSoup(f, 'html.parser')
+URL = "https://www.walottery.com/WinningNumbers/PastDrawings.aspx?gamename=hit5&unittype=day&unitcount=180"
+r = requests.get(URL)
+r.raise_for_status()  # This will raise an error if the request failed
+soup = BeautifulSoup(r.text, 'html.parser')
+# Save HTML
+# with open("data/past_180.html", "w", encoding=r.encoding) as f:
+#     f.write(r.text)
+
+# # Parse HTML with BeautifulSoup
+# soup = BeautifulSoup(r.text, 'html.parser')  # <--
+
+# with open('data/past_180.html') as f:
+#     soup = BeautifulSoup(f, 'html.parser')
 
 results = []
 # Find all dates

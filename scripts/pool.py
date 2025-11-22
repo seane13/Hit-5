@@ -3,7 +3,7 @@ import numpy as np
 from itertools import combinations
 
 # Load draw data
-df = pd.read_csv('hit5_clean_deduped.csv')
+df = pd.read_csv('data/hit5_clean_deduped.csv')
 number_columns = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
 all_possible_numbers = range(1, 43)
 
@@ -119,3 +119,10 @@ top_100 = sorted(filtered_scored_combos, key=lambda x: x[1], reverse=True)[:100]
 print(f'Number of balanced, filtered combos: {len(top_100)}')
 for combo, combo_score in top_100[:5]:
     print(combo, combo_score)
+
+# Export full list
+sorted_combos = sorted(filtered_scored_combos, key=lambda x: x[1], reverse=True)
+
+with open('data/all_filtered_combos.txt', 'w') as f:
+    for combo, combo_score in sorted_combos:
+        f.write(f"{combo},{combo_score}\n")

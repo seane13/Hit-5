@@ -1,76 +1,101 @@
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import roc_auc_score, classification_report
-import sys, os
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from sklearn.metrics import classification_report, roc_curve, auc
+import matplotlib.pyplot as plt
 
-# Load data
-df = pd.read_csv('data/hit5_clean_deduped.csv')
-number_columns = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
-all_possible_numbers = range(1, 43)
+# --- Config ---
+DATA_PATH = 'data/hit5_clean_deduped.csv'
+NUMBER_COLUMNS = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
+all_possible_numbers = list(range(1, 43))
 
-# Build a feature table: Each row = (draw_idx, number), columns = features
-feature_rows = []
-for i in range(10, len(df)-1):  # start at 10 to enable window-based stats
-    prev_window = df[number_columns].iloc[:i]
-    this_draw = set(df.loc[i+1, number_columns])  # next draw (for label)
+# --- Feature creation for a single number ---
+def make_features(train_df, number):
+    freq = train_df[NUMBER_COLUMNS].apply(lambda row: number in row.values, axis=1).sum()
+    last_hit = train_df[NUMBER_COLUMNS].apply(lambda row: number in row.values, axis=1)[::-1]
+    last_idx = np.where(last_hit.values)[0]
+    gap = len(train_df) - last_idx[0] if len(last_idx) else len(train_df)
+    window_freq = train_df[NUMBER_COLUMNS].tail(20).apply(lambda row: number in row.values, axis=1).sum()
+    # Mean gap stat
+    indices = train_df[NUMBER_COLUMNS].apply(lambda row: number in row.values, axis=1)
+    hit_indices = np.where(indices.values)[0]
+    gaps = [hit_indices[0]] + [hit_indices[j] - hit_indices[j-1] for j in range(1, len(hit_indices))] if len(hit_indices) else []
+    mean_gap = np.mean(gaps) if gaps else len(train_df)
+    avg_gap, std_gap = 8.26, 1.76
+    category = 'warm'
+    if mean_gap < (avg_gap - std_gap): category = 'hot'
+    elif mean_gap > (avg_gap + std_gap): category = 'cold'
+    category_code = {'hot':2, 'warm':1, 'cold':0}[category]
+    return [freq, gap, window_freq, category_code]
+
+# --- Load data ---
+df = pd.read_csv(DATA_PATH)
+train_idx = int(len(df) * 0.8)
+
+# --- Build training data ---
+train_features, train_labels = [], []
+for i in range(10, train_idx):
+    prev_window = df[NUMBER_COLUMNS].iloc[:i]
+    next_draw = set(df.loc[i, NUMBER_COLUMNS])
     for n in all_possible_numbers:
-        # Features
-        freq = prev_window.apply(lambda row: n in row.values, axis=1).sum()  # freq up to this draw
-        last_hit = prev_window.apply(lambda row: n in row.values, axis=1)[::-1].idxmax()
-        gap = i - last_hit if last_hit >= 0 else i
-        window_freq = prev_window.tail(20).apply(lambda row: n in row.values, axis=1).sum()
-        # Hot/Warm/Cold category by mean gap (precomputed)
-        gaps = []
-        indices = prev_window.apply(lambda row: n in row.values, axis=1)
-        hit_indices = list(np.where(indices)[0])
-        if hit_indices:
-            for j in range(len(hit_indices)):
-                if j == 0: gaps.append(hit_indices[j])
-                else: gaps.append(hit_indices[j] - hit_indices[j-1])
-            mean_gap = np.mean(gaps)
-        else:
-            mean_gap = i
-        # Assign category
-        category = 'warm'
-        avg_gap = 8.26
-        std_gap = 1.76
-        if mean_gap < (avg_gap - std_gap): category = 'hot'
-        elif mean_gap > (avg_gap + std_gap): category = 'cold'
-        # Label: was n in NEXT draw?
-        label = int(n in this_draw)
-        feature_rows.append({
-            'draw': i,
-            'number': n,
-            'freq': freq,
-            'gap': gap,
-            'window_freq': window_freq,
-            'category': category,
-            'label': label
-        })
+        train_features.append(make_features(prev_window, n))
+        train_labels.append(int(n in next_draw))
 
-features_df = pd.DataFrame(feature_rows)
+# --- Build test data ---
+test_features, test_labels = [], []
+for i in range(train_idx, len(df)-1):
+    prev_window = df[NUMBER_COLUMNS].iloc[:i]
+    next_draw = set(df.loc[i+1, NUMBER_COLUMNS])
+    for n in all_possible_numbers:
+        test_features.append(make_features(prev_window, n))
+        test_labels.append(int(n in next_draw))
 
-# Encode category
-features_df['category_code'] = features_df['category'].map({'hot': 2, 'warm': 1, 'cold': 0})
+train_features = np.array(train_features)
+test_features = np.array(test_features)
 
-# Train/test split
-train = features_df[features_df['draw'] < int(features_df['draw'].max() * 0.8)]
-test  = features_df[features_df['draw'] >= int(features_df['draw'].max() * 0.8)]
+# --- Fit balanced classifier ---
+clf = RandomForestClassifier(
+    n_estimators=100,
+    class_weight='balanced',
+    random_state=42
+)
+clf.fit(train_features, train_labels)
 
-X_train = train[['freq','gap','window_freq','category_code']]
-y_train = train['label']
-X_test  = test[['freq','gap','window_freq','category_code']]
-y_test  = test['label']
+# --- Predictions and probabilities ---
+preds = clf.predict(test_features)
+probas = clf.predict_proba(test_features)[:, 1]  # Probability of class "1"
 
-# Train simple model
-clf = RandomForestClassifier(n_estimators=100, random_state=42)
-clf.fit(X_train, y_train)
-pred = clf.predict(X_test)
-proba = clf.predict_proba(X_test)[:,1]
+# --- Classification report ---
+print(classification_report(test_labels, preds))
 
-print(classification_report(y_test, pred, digits=2))
-print("AUC:", roc_auc_score(y_test, proba))
-feature_importance = dict(zip(X_train.columns, clf.feature_importances_))
-print("Feature importances:", feature_importance)
+# --- Compute and print AUC ---
+auc_val = auc(*roc_curve(test_labels, probas)[:2])
+print(f"AUC: {auc_val}")
+
+# --- Feature importances ---
+feat_names = ['freq', 'gap', 'window_freq', 'category_code']
+importances = dict(zip(feat_names, clf.feature_importances_))
+print("Feature importances:", importances)
+
+# --- ROC Curve plot ---
+fpr, tpr, _ = roc_curve(test_labels, probas)
+roc_auc = auc(fpr, tpr)
+plt.figure()
+plt.plot(fpr, tpr, color='darkorange', lw=2, label=f'ROC curve (AUC = {roc_auc:.2f})')
+plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--', label='Random classifier')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate (Recall)')
+plt.title('Receiver Operating Characteristic (ROC)')
+plt.legend(loc='lower right')
+plt.savefig('plots/ROC.png')
+plt.show()
+
+# --- Threshold tuning example ---
+for thresh in [0.5, 0.3, 0.1]:
+    tuned_preds = (probas > thresh).astype(int)
+    print(f"\n=== Threshold {thresh} ===")
+    print(classification_report(test_labels, tuned_preds))

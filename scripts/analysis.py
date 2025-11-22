@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import math
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -22,6 +23,28 @@ DATA_PATH = 'data/hit5_clean_deduped.csv'
 NUMBER_COLUMNS = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
 df = pd.read_csv(DATA_PATH)
 all_numbers = pd.Series(df[NUMBER_COLUMNS].values.flatten())
+
+# --- General Odds Analysis ---
+def odds_hit5_single_ticket():
+    n_total = 42
+    combo_size = 5
+    total_combos = math.comb(n_total, combo_size)
+    odds = 1 / total_combos
+    print(f"Total possible Hit 5 tickets: {total_combos:,}")
+    print(f"Odds of winning with one ticket: 1 in {total_combos:,} ({odds:.8f})\n")
+
+def odds_hit5_pool(pool_size=21):
+    combo_size = 5
+    pool_combos = math.comb(pool_size, combo_size)
+    odds = 1 / pool_combos
+    print(f"Pool size: {pool_size}")
+    print(f"Number of 5-number combos from pool: {pool_combos:,}")
+    print(f"Odds of jackpot if you play every possible combo from pool: 1 in {pool_combos:,} ({odds:.8f})")
+    print("(Note: Only if the pool contains all 5 drawn numbers)\n")
+
+# Show for pick 5, then domain pool of 21
+odds_hit5_single_ticket()
+odds_hit5_pool(pool_size=21)
 
 # --- Frequency Analysis ---
 freq = number_frequency(df, NUMBER_COLUMNS)

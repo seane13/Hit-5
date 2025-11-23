@@ -1,22 +1,19 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import math
 import sys, os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+import pandas as pd
+import numpy as np
+import math
+from statsmodels.sandbox.stats.runs import runstest_1samp
+from scipy.stats import linregress, norm
 from utils.lottery_stats import (
     calculate_gaps, number_frequency, get_hot_warm_cold,
-    longest_gap_per_number, recent_hits
+    longest_gap_per_number
 )
 from utils.viz import (
     plot_number_frequency, plot_gap_histogram,
-    plot_hot_warm_cold, plot_sum_trend, plot_empirical_vs_theoretical
+    plot_hot_warm_cold, plot_sum_trend, plot_empirical_vs_theoretical, plot_residuals_heatmap, plot_gap_length_per_number
 )
-from statsmodels.sandbox.stats.runs import runstest_1samp
-from scipy.stats import linregress, norm
-from utils.viz import plot_residuals_heatmap, plot_gap_length_per_number
 
 # --- Load Data ---
 DATA_PATH = 'data/hit5_clean_deduped.csv'
@@ -30,7 +27,7 @@ def odds_hit5_single_ticket():
     combo_size = 5
     total_combos = math.comb(n_total, combo_size)
     odds = 1 / total_combos
-    print(f"Total possible Hit 5 tickets: {total_combos:,}")
+    print(f"Total possible Hit 5 combinations: {total_combos:,}")
     print(f"Odds of winning with one ticket: 1 in {total_combos:,} ({odds:.8f})\n")
 
 def odds_hit5_pool(pool_size=21):

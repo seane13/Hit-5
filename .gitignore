@@ -1,5 +1,9 @@
 # Ignore data files
-
+/data/
+*.csv
+*.tsv
+*.xlsx
+!data/hit5_all_history.csv
 
 # Ignore generated outputs
 

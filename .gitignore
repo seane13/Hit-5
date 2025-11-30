@@ -1,8 +1,5 @@
 # Ignore data files
-/data/
 
-*.tsv
-*.xlsx
 
 # Ignore generated outputs
 

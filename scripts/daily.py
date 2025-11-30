@@ -53,7 +53,7 @@ if __name__ == "__main__":
     hist = pd.read_csv(HIST_PATH)
 
     # Scrape recent draws (e.g., last 30 days)
-    recent_rows = fetch_recent_days(30)
+    recent_rows = fetch_recent_days(1)
     recent = pd.DataFrame(
         recent_rows,
         columns=["Date", "Num1", "Num2", "Num3", "Num4", "Num5"],

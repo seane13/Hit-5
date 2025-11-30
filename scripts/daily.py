@@ -1,6 +1,14 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 import requests
+import os
+print("Current working directory:", os.getcwd())
+print("Full path being checked:", os.path.abspath('data/hit5_all_history.csv'))
+print("File exists?", os.path.exists('data/hit5_all_history.csv'))
+
+# List files in data folder
+if os.path.exists('data'):
+    print("Files in data/:", os.listdir('data'))
 
 BASE = "https://www.walottery.com/WinningNumbers/PastDrawings.aspx"
 HIST_PATH = "data/hit5_all_history.csv"

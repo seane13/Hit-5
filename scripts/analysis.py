@@ -16,7 +16,7 @@ from utils.viz import (
 )
 
 # --- Load Data ---
-DATA_PATH = 'data/hit5_clean_deduped.csv'
+DATA_PATH = 'data/hit5_all_history.csv'
 NUMBER_COLUMNS = ['Num1', 'Num2', 'Num3', 'Num4', 'Num5']
 df = pd.read_csv(DATA_PATH)
 all_numbers = pd.Series(df[NUMBER_COLUMNS].values.flatten())

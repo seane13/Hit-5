@@ -25,7 +25,7 @@ def plot_number_frequency(freq_dict, title="Number Frequency", xlabel="Number", 
             ha='center', va='bottom', fontsize=10
         )
     plt.tight_layout()
-    plt.savefig('plots/frequency_chart.png')
+    plt.savefig('plots/frequency_chart_all.png')
     plt.show()
 
 # Hot/Warm/Cold plot with categories and number annotations
@@ -55,7 +55,7 @@ def plot_hot_warm_cold(freq_dict, hot, warm, cold, title="Hot/Warm/Cold Number F
                 str(n),
                 ha='center', va='bottom', fontsize=9)
     plt.tight_layout()
-    plt.savefig('plots/hot_warm_cold.png')
+    plt.savefig('plots/hwc_all.png')
     plt.show()
 
 def plot_residuals_heatmap(freq_dict, n_numbers, n_draws, expected_per_number, title="Standardized Residuals Heatmap"):
@@ -75,7 +75,7 @@ def plot_residuals_heatmap(freq_dict, n_numbers, n_draws, expected_per_number, t
     plt.title(title)
     plt.xlabel("Number")
     plt.tight_layout()
-    plt.savefig('plots/res_heatmap.png')
+    plt.savefig('plots/res_heatmap_all.png')
     plt.show()
 
 def plot_gap_histogram(gaps_dict, title="Gap Length Distribution", bins=15):
@@ -104,7 +104,7 @@ def plot_gap_length_per_number(gaps_dict, title="Gap Lengths by Number"):
     plt.ylabel("Gap Length")
     plt.title(title)
     plt.tight_layout()
-    plt.savefig('plots/gap_per.png')
+    plt.savefig('plots/gap_per_all.png')
     plt.show()
 
 def plot_sum_trend(df, number_columns, window=20, title="Sum Trend of Drawn Numbers"):
@@ -124,12 +124,12 @@ def plot_sum_trend(df, number_columns, window=20, title="Sum Trend of Drawn Numb
     plt.title(title)
     plt.legend()
     plt.tight_layout()
-    plt.savefig('plots/sum_trend.png')
+    plt.savefig('plots/sum_trend_all.png')
     plt.show()
 
 def plot_empirical_vs_theoretical(prob_df, title="Empirical vs. Theoretical Probability by Number"):
     ax = prob_df.plot(x="Number", y=["Empirical Probability", "Theoretical Probability"], kind="bar", figsize=(12,5))
     plt.title(title)
     plt.tight_layout()
-    plt.savefig('plots/emperical_vs_theoretical.png')
+    plt.savefig('plots/emper_vs_theor_all.png')
     plt.show()

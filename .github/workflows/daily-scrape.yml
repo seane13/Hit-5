@@ -2,7 +2,7 @@ name: Daily Hit5 Update
 
 on:
   schedule:
-    - cron: '5 8 * * *'   # run every day at 08:05 UTC
+    - cron: '5 16 * * *'   # run every day at 08:05 UTC
   workflow_dispatch:       # allow manual run from the Actions tab
 
 jobs:

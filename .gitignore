@@ -1,6 +1,6 @@
 # Ignore data files
 /data/
-.csv
+
 *.tsv
 *.xlsx
 

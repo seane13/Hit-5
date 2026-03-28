@@ -174,4 +174,5 @@ Open Jupyter notebooks in notebooks/
 This repository is open-source, non-commercial, and for educational/player research only. All original Hit 5 draw data remain subject to Washington's Lottery terms. No affiliation, sponsorship, or verification is implied. For any redistribution of draw data, cite both this repository and the official site.
 
 ### Work in Progress
-Creating tables to analyse in Tableau
+Creating tables to analyse in Tableau.
+github needs the occasional action to keep running scrape.
